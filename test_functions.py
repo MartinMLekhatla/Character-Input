@@ -65,6 +65,22 @@ class MyTestCase(unittest.TestCase):
         current_age = 'abc'
         self.assertIsNone(functions.calculate_year_turns_100(current_age))
 
+    def test_display_turns_100_message_valid_input(self):
+        # Test for valid input
+        age = 25
+        name = "John"
+        year_hundred = datetime.now().year
+        self.assertEqual(functions.display_turns_100_message(name, age, year_hundred), f'Hello, {name}! You will turn 100 '
+                                                                                  f'years old in the year {
+                                                                                  year_hundred}.')
+
+    def test_display_turns_100_message_invalid_age(self):
+        # Test for invalid age input
+        name = "Alice"
+        age = -5
+        year_hundred = datetime.now().year
+        self.assertEqual(functions.display_turns_100_message(name, age, year_hundred), "Invalid age input. Please enter a valid age.")
+
 
 if __name__ == '__main__':
     unittest.main()
