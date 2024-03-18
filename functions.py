@@ -26,3 +26,9 @@ def calculate_year_turns_100(age):
     year_hundred = datetime.now().year + (100 - age)
     return year_hundred
 
+
+def display_turns_100_message(name, age, year_hundred):
+    if age < 0:
+        return f'Invalid age input. Please enter a valid age.'
+    return f'Hello, {name}! You will turn 100 years old in the year {year_hundred}.'
+
