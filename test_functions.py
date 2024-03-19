@@ -1,3 +1,4 @@
+import io
 import unittest
 from datetime import datetime
 from unittest.mock import patch
@@ -70,16 +71,27 @@ class MyTestCase(unittest.TestCase):
         age = 25
         name = "John"
         year_hundred = datetime.now().year
-        self.assertEqual(functions.display_turns_100_message(name, age, year_hundred), f'Hello, {name}! You will turn 100 '
-                                                                                  f'years old in the year {
-                                                                                  year_hundred}.')
+        expected_message = (f'Hello, {name}! You will turn 100 years old in the year {year_hundred} since you are '
+                            f'currently {age}.')
+        self.assertEqual(functions.display_turns_100_message(name, age, year_hundred), expected_message)
 
     def test_display_turns_100_message_invalid_age(self):
         # Test for invalid age input
         name = "Alice"
         age = -5
         year_hundred = datetime.now().year
-        self.assertEqual(functions.display_turns_100_message(name, age, year_hundred), "Invalid age input. Please enter a valid age.")
+        expected_message = "Invalid age input. Please enter a valid age."
+        self.assertEqual(functions.display_turns_100_message(name, age, year_hundred), expected_message)
+
+    @patch('functions.accept_users_name', return_value='Alice')
+    @patch('functions.accept_users_age', return_value=25)
+    @patch('functions.calculate_year_turns_100', return_value=2097)
+    @patch('functions.display_turns_100_message', return_value="Hello, Alice! You will turn 100 years old in the year 2097 since you are currently 25.")
+    def test_run_application(self, mock_display, mock_calculate, mock_age, mock_name):
+        expected_output = "Hello, Alice! You will turn 100 years old in the year 2097 since you are currently 25.\n"
+        with patch('sys.stdout', new=io.StringIO()) as fake_stdout:
+            functions.run_application()
+            self.assertEqual(fake_stdout.getvalue(), expected_output)
 
 
 if __name__ == '__main__':
