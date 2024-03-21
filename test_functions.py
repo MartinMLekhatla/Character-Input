@@ -8,7 +8,7 @@ import functions
 
 class MyTestCase(unittest.TestCase):
     @patch('builtins.input', return_value='martin')
-    def test_get_user_name(self, _):
+    def test_get_user_name_string(self, _):
         self.assertEqual("Martin", functions.accept_users_name())
 
     @patch('builtins.input', return_value='25')

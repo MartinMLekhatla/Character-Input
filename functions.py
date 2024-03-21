@@ -2,8 +2,13 @@ from datetime import datetime
 
 
 def accept_users_name():
-    name = input("Enter your name: ").capitalize()
-    return name
+    while True:
+        name = input("Enter your name: ").capitalize()
+        if not name.isalpha():
+            print("Please user letters.")
+            continue
+        else:
+            return name
 
 
 def accept_users_age():
